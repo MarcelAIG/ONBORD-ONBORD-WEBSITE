@@ -24,7 +24,6 @@ export const SECTIONS: FormSection[] = [
   {
     title: "1. Business Information",
     fields: [
-      { label: "Contact Person", type: "input", placeholder: "Owner or manager name", helperText: "Name of the owner or main person we should contact if we have questions." },
       { label: "Business Name", type: "input", placeholder: "e.g. Lotus Thai Massage", required: true },
       { label: "Business Phone", type: "input", placeholder: "e.g. +33 1 23 45 67 89", required: true },
       { label: "Business Email", type: "input", placeholder: "contact@yourbusiness.com", required: true },

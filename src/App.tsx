@@ -11,7 +11,6 @@ import { CheckCircle2, Loader2, ShieldAlert, Info } from 'lucide-react';
 
 export default function App() {
   // Section 1 - Business Information
-  const [contactPerson, setContactPerson] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [businessPhone, setBusinessPhone] = useState('');
   const [businessEmail, setBusinessEmail] = useState('');
@@ -180,7 +179,6 @@ export default function App() {
       // 1. Prepare structured form field dictionary
       const fieldsPayload: Record<string, string> = {
         // Section 1
-        "Contact Person": contactPerson.trim(),
         "Business Name": businessName.trim(),
         "Business Phone": businessPhone.trim(),
         "Business Email": businessEmail.trim(),
@@ -269,8 +267,7 @@ export default function App() {
         clientName: cleanBusinessName,
         folderName: cleanBusinessName,
         name: cleanBusinessName,
-        'Business Name': cleanBusinessName,
-        contactPerson: contactPerson.trim()
+        'Business Name': cleanBusinessName
       };
 
       const startRes = await fetch('/api/submit', {
@@ -419,15 +416,6 @@ export default function App() {
 
           {/* SECTION 1 — BUSINESS INFORMATION */}
           <Card title="1. Business Information">
-            <Input
-              id="contact-person"
-              label="Contact Person"
-              explanation="Name of the owner or main person we should contact if we have questions."
-              placeholder="Owner or manager name"
-              value={contactPerson}
-              onChange={(e) => setContactPerson(e.target.value)}
-            />
-
             <Input
               id="business-name"
               label="Business Name"
