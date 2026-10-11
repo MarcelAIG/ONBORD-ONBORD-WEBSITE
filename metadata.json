@@ -1,0 +1,8 @@
+{
+  "name": "Remix System Onboarding",
+  "description": "Client onboarding form for system and website setup.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
