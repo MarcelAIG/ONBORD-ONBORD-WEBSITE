@@ -14,11 +14,17 @@
   }
 
   /* Prevent mobile Safari automatic zooming by guaranteeing minimum font size on inputs */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px;
   }
+
   @media (min-width: 640px) {
-    input, select, textarea {
+
+    input,
+    select,
+    textarea {
       font-size: 0.875rem;
     }
   }
