@@ -29,9 +29,7 @@ export const SECTIONS: FormSection[] = [
       { label: "Business Phone", type: "input", placeholder: "e.g. +33 1 23 45 67 89", required: true },
       { label: "Business Email", type: "input", placeholder: "contact@yourbusiness.com", required: true },
       { label: "Business Address", type: "input", placeholder: "e.g. 12 Rue de la Paix, 75002 Paris" },
-      { label: "About the Business", type: "textarea", helperText: "Tell us anything you would like customers to know about the business, your experience, approach, atmosphere or story. Optional." },
-      { label: "Do you currently have a website?", type: "radio", options: ["Yes", "No"] },
-      { label: "Current Website URL", type: "input", placeholder: "https://", condition: { field: "Do you currently have a website?", value: "Yes" } },
+      { label: "About the Business", type: "textarea", helperText: "Tell us anything you would like customers to know about the business, your experience, approach, atmosphere or story. Optional." }
     ]
   },
   {

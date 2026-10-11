@@ -19,8 +19,6 @@ export default function App() {
   const [aboutBusiness, setAboutBusiness] = useState('');
   const [websiteLanguages, setWebsiteLanguages] = useState<string[]>([]);
   const [otherWebsiteLanguage, setOtherWebsiteLanguage] = useState('');
-  const [haveWebsite, setHaveWebsite] = useState('');
-  const [currentWebsiteUrl, setCurrentWebsiteUrl] = useState('');
 
   // Section 2 - Location & Opening Hours
   const [whereServices, setWhereServices] = useState('');
@@ -105,17 +103,25 @@ export default function App() {
   const uploadFile = async (file: FileData, folderId: string) => {
     const payload = {
       action: 'uploadFile',
+      type: 'uploadFile',
       folderId,
-      file: { name: file.name, type: file.type, data: file.base64 }
+      folder_id: folderId,
+      file: { name: file.name, type: file.type, data: file.base64 },
+      fileName: file.name,
+      fileType: file.type,
+      fileData: file.base64,
+      name: file.name,
+      base64: file.base64
     };
     const response = await fetch('/api/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    if (!response.ok) throw new Error('Network response was not ok');
-    const data = await response.json();
-    if (!data.success) throw new Error(data.error || 'Upload failed on server');
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || 'Upload failed on server');
+    }
     return true;
   };
 
@@ -184,8 +190,6 @@ export default function App() {
           ...websiteLanguages.filter(l => l !== 'Other'),
           ...(websiteLanguages.includes('Other') && otherWebsiteLanguage.trim() ? [`Other (${otherWebsiteLanguage.trim()})`] : [])
         ].join(', '),
-        "Do you currently have a website?": haveWebsite,
-        "Current Website URL": haveWebsite === 'Yes' ? currentWebsiteUrl.trim() : '',
 
         // Section 2
         "Where do you provide your services?": whereServices,
@@ -256,10 +260,17 @@ export default function App() {
         "Anything Else We Should Know?": additionalInfo.trim()
       };
 
-      // 2. Start submission (Create folder in Drive)
+      // 2. Start submission (Create folder in Drive using Business Name)
+      const cleanBusinessName = businessName.trim();
       const startPayload = {
         action: 'start',
-        clientName: businessName.trim() || contactPerson.trim() || 'Massage Salon Client'
+        type: 'start',
+        businessName: cleanBusinessName,
+        clientName: cleanBusinessName,
+        folderName: cleanBusinessName,
+        name: cleanBusinessName,
+        'Business Name': cleanBusinessName,
+        contactPerson: contactPerson.trim()
       };
 
       const startRes = await fetch('/api/submit', {
@@ -268,12 +279,11 @@ export default function App() {
         body: JSON.stringify(startPayload)
       });
 
-      if (!startRes.ok) throw new Error('Failed to start submission');
-      const startData = await startRes.json();
-      if (!startData.success || !startData.folderId) {
-        throw new Error('Failed to create client folder');
+      const startData = await startRes.json().catch(() => ({}));
+      if (!startRes.ok || !startData.success) {
+        throw new Error(startData.error || 'Failed to create client folder');
       }
-      const folderId = startData.folderId;
+      const folderId = startData.folderId || '';
 
       // 3. Process and upload ALL files
       const allFiles = Object.values(fileState).flat() as FileData[];
@@ -327,9 +337,15 @@ export default function App() {
 
       const finalPayload = {
         action: 'finalize',
+        type: 'finalize',
         folderId,
+        folder_id: folderId,
+        businessName: cleanBusinessName,
+        clientName: cleanBusinessName,
+        'Business Name': cleanBusinessName,
         uploadedFilesCount: uploadedCount,
-        fields: fieldsPayload
+        fields: fieldsPayload,
+        ...fieldsPayload
       };
 
       const response = await fetch('/api/submit', {
@@ -338,9 +354,10 @@ export default function App() {
         body: JSON.stringify(finalPayload),
       });
 
-      if (!response.ok) throw new Error('Failed to submit form');
-      const data = await response.json();
-      if (!data.success) throw new Error(data.error || 'Submission failed');
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Submission failed');
+      }
 
       setIsSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -471,23 +488,6 @@ export default function App() {
                 placeholder="e.g. German, Spanish, Italian"
                 value={otherWebsiteLanguage}
                 onChange={(e) => setOtherWebsiteLanguage(e.target.value)}
-              />
-            )}
-
-            <RadioGroup
-              label="Do you currently have a website?"
-              options={['Yes', 'No']}
-              value={haveWebsite}
-              onChange={setHaveWebsite}
-            />
-
-            {haveWebsite === 'Yes' && (
-              <Input
-                id="current-website-url"
-                label="Current Website URL"
-                placeholder="https://"
-                value={currentWebsiteUrl}
-                onChange={(e) => setCurrentWebsiteUrl(e.target.value)}
               />
             )}
           </Card>
