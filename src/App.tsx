@@ -392,30 +392,30 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-red-500/30 font-sans">
-      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-20">
+      <div className="max-w-3xl mx-auto px-3.5 sm:px-6 py-8 sm:py-16">
 
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-8 sm:mb-14">
           <img
             src="https://plain-weur-prod-public.komododecks.com/202608/13/cAhRqB6qoV4bkjrEdeYC/image.png"
             alt="Company Logo"
-            className="h-24 w-auto mx-auto mb-6 object-contain"
+            className="h-16 sm:h-20 md:h-24 w-auto mx-auto mb-4 sm:mb-6 object-contain"
           />
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50 mb-4">
-            Massage Business — Website Information
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-zinc-50 mb-3 sm:mb-4">
+            Website Information
           </h1>
-          <p className="text-zinc-400 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base">
+          <p className="text-zinc-400 max-w-2xl mx-auto leading-relaxed text-xs sm:text-sm md:text-base px-2">
             Please complete the information below so we have everything needed to build your website. If information is already available through your existing booking system, Google profile or another online profile, you can simply provide the link instead of entering everything again.
           </p>
         </div>
 
         {submitState.error && (
-          <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+          <div className="mb-6 sm:mb-8 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs sm:text-sm">
             {submitState.error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
 
           {/* SECTION 1 — BUSINESS INFORMATION */}
           <Card title="1. Business Information">
@@ -937,33 +937,31 @@ export default function App() {
           </div>
 
           {/* Footer Actions */}
-          <div className="pt-8 pb-12 flex flex-col items-center space-y-6 border-t border-zinc-800/50">
-            <label className="flex items-start space-x-3 cursor-pointer group max-w-lg mx-auto">
-              <div className="flex items-center h-5 mt-0.5">
-                <input
-                  type="checkbox"
-                  required
-                  checked={confirmCheckbox}
-                  onChange={(e) => setConfirmCheckbox(e.target.checked)}
-                  className="w-5 h-5 rounded border-zinc-700 bg-zinc-900 text-red-500 focus:ring-red-500/50 focus:ring-offset-zinc-950"
-                />
-              </div>
-              <span className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors leading-relaxed select-none">
+          <div className="pt-6 sm:pt-8 pb-12 flex flex-col items-center space-y-6 border-t border-zinc-800/50">
+            <label className="flex items-start space-x-3 cursor-pointer group w-full max-w-xl mx-auto p-3.5 sm:p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-colors">
+              <input
+                type="checkbox"
+                required
+                checked={confirmCheckbox}
+                onChange={(e) => setConfirmCheckbox(e.target.checked)}
+                className="w-5 h-5 rounded border-zinc-700 bg-zinc-900 text-red-500 focus:ring-red-500/50 focus:ring-offset-zinc-950 mt-0.5 flex-shrink-0 cursor-pointer"
+              />
+              <span className="text-xs sm:text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors leading-relaxed select-none">
                 I confirm that the information provided is correct and can be used to build my website and configure the business system. <span className="text-red-500">*</span>
               </span>
             </label>
 
             {submitState.isSubmitting && (
-              <div className="flex flex-col items-center space-y-2 text-zinc-300 mb-4">
-                <p className="text-sm font-medium">{submitState.statusText}</p>
-                {submitState.progressText && <p className="text-xs text-zinc-500">{submitState.progressText}</p>}
+              <div className="flex flex-col items-center space-y-2 text-zinc-300 text-center px-4">
+                <p className="text-xs sm:text-sm font-medium">{submitState.statusText}</p>
+                {submitState.progressText && <p className="text-[11px] sm:text-xs text-zinc-500">{submitState.progressText}</p>}
               </div>
             )}
 
             <button
               type="submit"
               disabled={submitState.isSubmitting || !confirmCheckbox}
-              className="px-8 py-4 bg-red-600 hover:bg-red-500 text-white rounded-xl font-semibold tracking-wide transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 w-full sm:w-auto min-w-[280px] justify-center shadow-lg shadow-red-900/20"
+              className="px-8 py-3.5 sm:py-4 bg-red-600 hover:bg-red-500 active:bg-red-700 text-white rounded-xl font-semibold tracking-wide transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 w-full sm:w-auto min-w-[280px] justify-center shadow-lg shadow-red-900/20 active:scale-[0.99] min-h-[50px]"
             >
               {submitState.isSubmitting ? (
                 <>

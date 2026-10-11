@@ -39,21 +39,21 @@ export function CheckboxGroup({
   };
 
   return (
-    <div className="flex flex-col space-y-3">
+    <div className="flex flex-col space-y-2.5">
       <label className="text-sm font-medium text-zinc-200">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
         {options.map((option) => {
           const isChecked = selectedValues.includes(option);
           return (
             <label
               key={option}
-              className={`flex items-center space-x-3 p-3 rounded-lg border transition-all cursor-pointer group ${
+              className={`flex items-center space-x-3 p-3 sm:p-3.5 rounded-xl border transition-all duration-150 cursor-pointer select-none group min-h-[46px] ${
                 isChecked
-                  ? 'bg-red-500/10 border-red-500/40 text-zinc-100 shadow-sm'
-                  : 'bg-zinc-950/60 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/40'
+                  ? 'bg-red-500/10 border-red-500/50 text-zinc-50 shadow-sm ring-1 ring-red-500/30'
+                  : 'bg-zinc-950/60 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/40 active:bg-zinc-900/60'
               }`}
             >
               <input
@@ -61,9 +61,11 @@ export function CheckboxGroup({
                 value={option}
                 checked={isChecked}
                 onChange={() => toggleOption(option)}
-                className="w-4 h-4 rounded text-red-500 bg-zinc-900 border-zinc-700 focus:ring-red-500/50 focus:ring-offset-zinc-950 transition-colors"
+                className="w-4 h-4 rounded text-red-500 bg-zinc-900 border-zinc-700 focus:ring-red-500/50 focus:ring-offset-zinc-950 transition-colors cursor-pointer flex-shrink-0"
               />
-              <span className="text-sm group-hover:text-zinc-100 select-none">{option}</span>
+              <span className="text-xs sm:text-sm group-hover:text-zinc-100 select-none leading-snug break-words">
+                {option}
+              </span>
             </label>
           );
         })}

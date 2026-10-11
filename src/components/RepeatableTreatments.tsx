@@ -72,7 +72,7 @@ export function RepeatableTreatments({ treatments, onChange }: RepeatableTreatme
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="sm:col-span-1">
+              <div>
                 <label className="block text-xs font-medium text-zinc-300 mb-1">
                   Treatment / Massage Name <span className="text-red-500">*</span>
                 </label>
@@ -81,34 +81,36 @@ export function RepeatableTreatments({ treatments, onChange }: RepeatableTreatme
                   placeholder="e.g. Traditional Thai Massage"
                   value={treatment.name}
                   onChange={(e) => updateTreatment(treatment.id, 'name', e.target.value)}
-                  className="flex h-10 w-full rounded-lg border border-zinc-800 bg-zinc-900/90 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors"
+                  className="flex h-11 sm:h-10 w-full rounded-xl sm:rounded-lg border border-zinc-800 bg-zinc-900/90 px-3.5 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-1">
-                  Duration <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. 60 min, 90 min"
-                  value={treatment.duration}
-                  onChange={(e) => updateTreatment(treatment.id, 'duration', e.target.value)}
-                  className="flex h-10 w-full rounded-lg border border-zinc-800 bg-zinc-900/90 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors"
-                />
-              </div>
+              <div className="grid grid-cols-2 gap-3 sm:contents">
+                <div>
+                  <label className="block text-xs font-medium text-zinc-300 mb-1">
+                    Duration <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 60 min"
+                    value={treatment.duration}
+                    onChange={(e) => updateTreatment(treatment.id, 'duration', e.target.value)}
+                    className="flex h-11 sm:h-10 w-full rounded-xl sm:rounded-lg border border-zinc-800 bg-zinc-900/90 px-3.5 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-1">
-                  Price <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. 70€ / 100€"
-                  value={treatment.price}
-                  onChange={(e) => updateTreatment(treatment.id, 'price', e.target.value)}
-                  className="flex h-10 w-full rounded-lg border border-zinc-800 bg-zinc-900/90 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors"
-                />
+                <div>
+                  <label className="block text-xs font-medium text-zinc-300 mb-1">
+                    Price <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 70€ / 100€"
+                    value={treatment.price}
+                    onChange={(e) => updateTreatment(treatment.id, 'price', e.target.value)}
+                    className="flex h-11 sm:h-10 w-full rounded-xl sm:rounded-lg border border-zinc-800 bg-zinc-900/90 px-3.5 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors"
+                  />
+                </div>
               </div>
             </div>
 
@@ -121,7 +123,7 @@ export function RepeatableTreatments({ treatments, onChange }: RepeatableTreatme
                 placeholder="Optional details, benefits, or focus areas..."
                 value={treatment.description}
                 onChange={(e) => updateTreatment(treatment.id, 'description', e.target.value)}
-                className="flex w-full rounded-lg border border-zinc-800 bg-zinc-900/90 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors resize-y"
+                className="flex w-full rounded-xl sm:rounded-lg border border-zinc-800 bg-zinc-900/90 px-3.5 py-2 text-base sm:text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500 transition-colors resize-y"
               />
             </div>
           </div>
@@ -131,7 +133,7 @@ export function RepeatableTreatments({ treatments, onChange }: RepeatableTreatme
       <button
         type="button"
         onClick={addTreatment}
-        className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg border border-zinc-700 bg-zinc-900/60 hover:bg-zinc-800/80 text-zinc-200 text-sm font-medium transition-colors"
+        className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-4 py-3 sm:py-2.5 rounded-xl border border-zinc-700 bg-zinc-900/60 hover:bg-zinc-800/80 active:bg-zinc-800 text-zinc-200 text-sm font-medium transition-colors min-h-[44px]"
       >
         <Plus className="w-4 h-4 text-red-500" />
         <span>+ Add Another Treatment</span>

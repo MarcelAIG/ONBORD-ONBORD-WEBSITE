@@ -86,14 +86,14 @@ export function PhotoGalleryUpload({
           onDrop={onDrop}
           onDragOver={onDragOver}
           onClick={() => inputRef.current?.click()}
-          className="cursor-pointer border-2 border-dashed border-zinc-700 hover:border-red-500/50 bg-zinc-950/50 rounded-xl p-8 flex flex-col items-center justify-center transition-colors group"
+          className="cursor-pointer border-2 border-dashed border-zinc-700 hover:border-red-500/50 bg-zinc-950/50 rounded-xl p-5 sm:p-8 flex flex-col items-center justify-center transition-colors group active:bg-zinc-900/60"
         >
-          <UploadCloud className="w-10 h-10 text-zinc-500 group-hover:text-red-500 transition-colors mb-4" />
-          <p className="text-sm text-zinc-300 font-medium text-center">
-            Drag and drop files here, or click to browse
+          <UploadCloud className="w-8 h-8 sm:w-10 sm:h-10 text-zinc-500 group-hover:text-red-500 transition-colors mb-3 sm:mb-4" />
+          <p className="text-xs sm:text-sm text-zinc-300 font-medium text-center">
+            Drag & drop photos here, or tap to browse
           </p>
-          <p className="text-xs text-zinc-500 mt-2">
-            Supported: image/jpeg, image/png, image/webp
+          <p className="text-[11px] sm:text-xs text-zinc-500 mt-1 sm:mt-2 text-center">
+            Supported: JPEG, PNG, WebP
           </p>
           <input
             ref={inputRef}
@@ -107,24 +107,30 @@ export function PhotoGalleryUpload({
       )}
 
       {files.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 mt-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3 mt-3">
           {files.map((file) => (
-            <div key={file.id} className="relative group border border-zinc-800 rounded-lg overflow-hidden bg-zinc-900 aspect-square">
+            <div key={file.id} className="relative group border border-zinc-800 rounded-xl overflow-hidden bg-zinc-900 aspect-square shadow-sm">
               <img src={file.base64} alt={file.name} className="w-full h-full object-cover" />
-              
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity p-2 flex flex-col justify-between">
-                <span className="text-xs text-white truncate drop-shadow-md">{file.name}</span>
-                
-                {(file.status === 'waiting' || file.status === 'failed') && (
-                  <button 
-                    type="button"
-                    onClick={(e) => { e.stopPropagation(); removeFile(file.id); }}
-                    className="self-end p-1 bg-red-500/80 hover:bg-red-500 rounded-md transition-colors"
-                  >
-                    <X className="w-4 h-4 text-white" />
-                  </button>
-                )}
+
+              {/* Bottom filename overlay */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-1.5 sm:p-2 pointer-events-none">
+                <span className="text-[10px] sm:text-xs text-zinc-200 truncate block drop-shadow-sm">{file.name}</span>
               </div>
+
+              {/* Delete button: always accessible on mobile touch, hover on desktop */}
+              {(file.status === 'waiting' || file.status === 'failed') && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeFile(file.id);
+                  }}
+                  aria-label="Remove photo"
+                  className="absolute top-1.5 right-1.5 p-1.5 bg-zinc-950/80 sm:bg-black/60 hover:bg-red-600 active:bg-red-700 text-zinc-300 hover:text-white rounded-full transition-all duration-150 z-10 sm:opacity-0 sm:group-hover:opacity-100 shadow-md min-h-[30px] min-w-[30px] flex items-center justify-center backdrop-blur-sm"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
 
               {/* Status Indicators Overlay */}
               {file.status === 'uploading' && (
@@ -134,7 +140,7 @@ export function PhotoGalleryUpload({
                 </div>
               )}
               {file.status === 'uploaded' && (
-                <div className="absolute top-2 right-2 bg-zinc-950/50 backdrop-blur-sm rounded-full p-0.5">
+                <div className="absolute top-1.5 left-1.5 bg-zinc-950/70 backdrop-blur-sm rounded-full p-0.5">
                   <CheckCircle className="w-5 h-5 text-green-500 bg-zinc-950 rounded-full" />
                 </div>
               )}
